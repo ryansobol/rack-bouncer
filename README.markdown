@@ -38,7 +38,7 @@ You can even specify a minimum version of IE like so
 
 inside environment.rb's Rails::Initializer.run
 
-    config.gem 'sant0sk1-rack-noie6', :lib => 'noie6'
+    config.gem 'rack-noie6', :lib => 'noie6'
     config.middleware.use "Rack::NoIE6"
     
 Piece o' cake!
