@@ -8,7 +8,13 @@ Originally developed by [juliocesar](http://github.com/juliocesar), [sant0sk1](h
 
 just 
 
-    gem install sant0sk1-rack-noie6 --source http://gems.github.com
+    # from gemcutter (canonical)
+    gem sources --add http://gemcutter.org
+    gem install rack-noie6
+    # from GitHub (development)
+    gem sources --add http://gems.github.com
+    gem install sant0sk1-rack-noie6
+    
     require 'noie6'
     
 and
