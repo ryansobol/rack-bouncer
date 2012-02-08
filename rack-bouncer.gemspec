@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.7"
   s.rubyforge_project         = "rack-bouncer"
 
+  s.add_development_dependency "rack", "~> 1.4.1"
+
   s.files              = `git ls-files`.split("\n")
   s.test_files         = `git ls-files -- spec/*`.split("\n")
   s.require_paths      = ["lib"]
