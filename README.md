@@ -18,15 +18,15 @@ The default redirects users to [Browse Happy](http://browsehappy.com/):
 
 You can redirect users to a page in your website:
 
-    use Rack::Bouncer, redirect: "/bouncer.html"
+    use Rack::Bouncer, :redirect => "/bouncer.html"
 
 You can redirect users to a URL as well:
 
-    use Rack::Bouncer, redirect: "http://slashdot.org"
+    use Rack::Bouncer, :redirect => "http://slashdot.org"
 
 You can even specify a minimum version of IE like so:
 
-    use Rack::Bouncer, redirect: "http://slashdot.org", minimum: 6.0
+    use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_ie => 6.0
 
 ## acknowledgments
 

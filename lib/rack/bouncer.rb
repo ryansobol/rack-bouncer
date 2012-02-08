@@ -8,7 +8,7 @@ module Rack
       @app = app
       @options = options
       @options[:redirect] ||= "http://browsehappy.com/"
-      @options[:minimum] ||= 8.0
+      @options[:minimum_ie] ||= 8.0
     end
 
     def call(env)
@@ -23,7 +23,7 @@ module Rack
 
     def ie6_found_in?(env)
       if env["HTTP_USER_AGENT"]
-        is_ie?(env["HTTP_USER_AGENT"]) and ie_version(env["HTTP_USER_AGENT"]) < @options[:minimum] and @options[:redirect] != env["PATH_INFO"]
+        is_ie?(env["HTTP_USER_AGENT"]) and ie_version(env["HTTP_USER_AGENT"]) < @options[:minimum_ie] and @options[:redirect] != env["PATH_INFO"]
       end
     end
 

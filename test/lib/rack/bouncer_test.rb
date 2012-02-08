@@ -25,7 +25,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   end
 
   def test_redirects_to_where_it_should_if_user_specified_minimum_not_met
-    request  = create_request(:redirect => "http://slashdot.org", :minimum => 6.0)
+    request  = create_request(:redirect => "http://slashdot.org", :minimum_ie => 6.0)
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 5.5b1; Mac_PowerPC)" })
     assert_equal 302, response.status
     assert_equal response.location, "http://slashdot.org"
