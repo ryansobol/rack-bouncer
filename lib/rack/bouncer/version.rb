@@ -3,6 +3,6 @@
 module Rack
   module Bouncer
     # Current stable released version
-    VERSION = "1.1.1"
+    VERSION = "1.2"
   end
 end
