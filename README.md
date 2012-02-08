@@ -4,7 +4,7 @@ A Rack middleware that expels undesirable browsers out of your website.
 
 | _Browser_         | _Undesirable Versions_ |
 |-------------------|------------------------|
-| Internet Explorer | > 8                    |
+| Internet Explorer | < 8                    |
 | AOL               | All                    |
 
 ## usage
