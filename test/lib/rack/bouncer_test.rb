@@ -17,6 +17,18 @@ end
 
 class Rack::Bouncer::Test < MiniTest::Unit::TestCase
 
+  def test_version
+    assert_equal "1.2", Rack::Bouncer::VERSION
+  end
+
+  def test_default_redirect
+    assert_equal "http://browsehappy.com/", Rack::Bouncer::DEFAULT_OPTIONS[:redirect]
+  end
+
+  def test_default_minimum_ie
+    assert_equal 8.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_ie]
+  end
+
   def test_allows_if_no_user_agent_specified
     request  = create_request
     response = request.get("/")
@@ -25,7 +37,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   end
 
   # Internet Explorer
-  #############################################################################
+  #################################################################################################
 
   def test_allows_if_not_ie
     request  = create_request
@@ -104,7 +116,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   end
 
   # AOL
-  #############################################################################
+  #################################################################################################
 
   def test_expels_aol_6
     request  = create_request
@@ -156,7 +168,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   end
 
   # Firefox
-  #############################################################################
+  #################################################################################################
 
   def test_allows_firefox_4
     request  = create_request
@@ -166,7 +178,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   end
 
   # Safari
-  #############################################################################
+  #################################################################################################
 
   def test_allows_safari_5_0
     request  = create_request
@@ -183,7 +195,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   end
 
   # Chrome
-  #############################################################################
+  #################################################################################################
 
   def test_allows_chrome_16
     request  = create_request

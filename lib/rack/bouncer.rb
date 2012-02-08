@@ -4,11 +4,14 @@ module Rack
   class Bouncer
     VERSION = "1.2"
 
+    DEFAULT_OPTIONS = {
+      :redirect   => "http://browsehappy.com/",
+      :minimum_ie => 8.0
+    }
+
     def initialize(app, options = {})
-      @app = app
-      @options = options
-      @options[:redirect] ||= "http://browsehappy.com/"
-      @options[:minimum_ie] ||= 8.0
+      @app     = app
+      @options = DEFAULT_OPTIONS.merge(options)
     end
 
     def call(env)
@@ -20,6 +23,11 @@ module Rack
     end
 
     private
+
+    def safe_path(env)
+      path = env["PATH_INFO"]
+      path == @options[:redirect] || path =~ %r[^/(asset|images|stylesheets|javascripts|feedback)]
+    end
 
     def ie6_found_in?(env)
       if env["HTTP_USER_AGENT"]
