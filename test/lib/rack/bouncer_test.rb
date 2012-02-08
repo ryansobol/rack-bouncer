@@ -17,47 +17,6 @@ end
 
 class Rack::Bouncer::Test < MiniTest::Unit::TestCase
 
-  def test_redirects_to_where_it_should_if_ie6
-    request  = create_request
-    response = request.get("/", {"HTTP_USER_AGENT" => "MSIE 6.0" })
-    assert_equal 302, response.status
-    assert_equal response.location, "http://browsehappy.com/"
-  end
-
-  def test_redirects_to_where_it_should_if_user_specified_minimum_not_met
-    request  = create_request(:redirect => "http://slashdot.org", :minimum_ie => 6.0)
-    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 5.5b1; Mac_PowerPC)" })
-    assert_equal 302, response.status
-    assert_equal response.location, "http://slashdot.org"
-  end
-
-  def test_redirects_to_local_urls
-    request  = create_request(:redirect => "/foo")
-    response = request.get("/foo", {"HTTP_USER_AGENT" => "MSIE 6.0" })
-    assert_equal 200, response.status
-    assert_equal "Hi Internets!", response.body
-  end
-
-  def test_allows_if_not_ie6
-    request  = create_request
-    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0"})
-    assert_equal "Hi Internets!", response.body
-  end
-
-  def test_allows_if_UA_version_greater_than_minimum
-    request  = create_request
-    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 8.0; Windows XP)"})
-    assert_equal 200, response.status
-    assert_equal "Hi Internets!", response.body
-  end
-
-  def test_allows_if_no_UA_version_no_available
-    request  = create_request
-    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE l4me; Windows XP)"})
-    assert_equal 200, response.status
-    assert_equal "Hi Internets!", response.body
-  end
-
   def test_allows_if_no_user_agent_specified
     request  = create_request
     response = request.get("/")
@@ -68,11 +27,45 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   # Internet Explorer
   #############################################################################
 
-  def test_expels_ie_6
+  def test_allows_if_not_ie
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0"})
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_ie_if_no_version_available
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE l4me; Windows XP)"})
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_expels_ie_6_and_redirects_to_default
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
     assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_expels_ie_6_and_redirects_to_internal_url
+    request  = create_request(:redirect => "/foo")
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 302, response.status
+    assert_equal response.location, "/foo"
+  end
+
+  def test_expels_ie_6_and_redirects_to_external_url
+    request  = create_request(:redirect => "http://getfirefox.com")
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 302, response.status
+    assert_equal response.location, "http://getfirefox.com"
+  end
+
+  def test_allows_ie_6_when_minimum
+    request  = create_request(:minimum_ie => 6.0)
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
   end
 
   def test_expels_ie_7
@@ -82,8 +75,22 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
     assert_equal response.location, "http://browsehappy.com/"
   end
 
+  def test_allows_ie_7_when_minimum
+    request  = create_request(:minimum_ie => 7.0)
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
   def test_allows_ie_8
     request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "User-Agent:Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_ie_8_when_minimum
+    request  = create_request(:minimum_ie => 8.0)
     response = request.get("/", {"HTTP_USER_AGENT" => "User-Agent:Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)" })
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
