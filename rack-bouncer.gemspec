@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name        = "rack-bouncer"
   s.version     = Rack::Bouncer::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Jerod Santo", "Julio Cesar Ody", "Will Jessop", "Ryan Sobol"]
+  s.authors     = ["Julio Cesar Ody", "Jerod Santo", "Will Jessop", "Ryan Sobol"]
   s.email       = "contact@ryansobol.com"
   s.homepage    = "https://github.com/ryansobol/rack-bouncer"
   s.summary     = "A Rack middleware that expels undesirable browsers out of your website."
