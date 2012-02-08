@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.expand_path("lib/rack/bouncer/version", File.dirname(__FILE__))
+require File.expand_path("lib/rack/bouncer", File.dirname(__FILE__))
 
 Gem::Specification.new do |s|
   s.name        = "rack-bouncer"

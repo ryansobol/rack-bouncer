@@ -1,5 +1,7 @@
 module Rack
   class Bouncer
+    VERSION = "1.2"
+
     def initialize(app, options = {})
       @app = app
       @options = options
