@@ -30,7 +30,7 @@ You can even specify a minimum version of IE like so:
 
 You can even specify a set of safe paths:
 
-    use Rack::Bouncer, :safe_paths => ["/assets", "/images", "/stylesheets", "/javascripts", "/feedback"]
+    use Rack::Bouncer, :safe_paths => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"]
 
 *NOTE:* By default, the above paths are safe already.
 

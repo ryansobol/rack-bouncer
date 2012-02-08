@@ -2,10 +2,10 @@
 
 module Rack
   class Bouncer
-    VERSION = "1.2"
+    VERSION = "1.2.1"
 
     DEFAULT_OPTIONS = {
-      :safe_paths => ["/assets", "/images", "/stylesheets", "/javascripts", "/feedback"],
+      :safe_paths => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"],
       :redirect   => "http://browsehappy.com/",
       :minimum_ie => 8.0
     }
