@@ -3,7 +3,7 @@ require "rubygems"
 require "minitest/autorun"
 require "rack/mock"
 
-require File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "rack", "bouncer")
+require "rack/bouncer"
 
 class TestApp
   def call(env)
@@ -20,14 +20,14 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   def test_redirects_to_where_it_should_if_ie6
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "MSIE 6.0" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_redirects_to_where_it_should_if_user_specified_minimum_not_met
     request  = create_request(:redirect => "http://slashdot.org", :minimum => 6.0)
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 5.5b1; Mac_PowerPC)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://slashdot.org"
   end
 
@@ -71,14 +71,14 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   def test_expels_ie_6
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_expels_ie_7
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
@@ -102,49 +102,49 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   def test_expels_aol_6
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 5.5; AOL 6.0; Windows 98)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_expels_aol_7
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; AOL 7.0; Windows NT 5.1)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_expels_aol_8
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; AOL 8.0; Windows NT 5.1)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_expels_aol_9
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.0; Windows NT 5.1)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_expels_aol_9_1
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.1; AOLBuild 4334.5000; Windows NT 5.1; Trident/4.0)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_expels_aol_9_5
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.43; Windows NT 5.1; Trident/4.0)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
   def test_expels_aol_9_6
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 8.0; AOL 9.6; AOLBuild 4340.5004; Windows NT 5.1; Trident/4.0)" })
-    assert_equal 301, response.status
+    assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 

@@ -47,7 +47,7 @@ module Rack
     end
 
     def kick_it
-      [301, {"Location" => @options[:redirect], "Content-Type" => "text/html"}, "Browser not supported"]
+      [302, {"Location" => @options[:redirect], "Content-Type" => "text/html"}, "Browser not supported"]
     end
   end
 end
