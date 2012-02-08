@@ -1,8 +1,9 @@
-require 'rake/testtask'
+require "rake/testtask"
 
 task :default => [:test]
 
-Rake::TestTask.new do |task|
-  task.pattern = 'test/lib/rack/bouncer_test.rb'
-  task.warning, task.verbose = true, true
+Rake::TestTask.new do |t|
+  t.libs.push "lib"
+  t.test_files = FileList["test/**/*_test.rb"]
+  t.verbose = true
 end
