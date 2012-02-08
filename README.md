@@ -1,6 +1,6 @@
 # rack-bouncer
 
-A Rack middleware that expels undesirable browsers out of your website.
+A Rack middleware that expels undesirable browsers out of your website. This project lovingly extends the `rack-noie6` gem.
 
 | _Browser_         | _Undesirable Versions_ |
 |-------------------|------------------------|
@@ -40,7 +40,7 @@ Pull requests are very welcome.
 
 ## acknowledgments
 
-Thanks to [juliocesar](http://github.com/juliocesar), [sant0sk1](http://github.com/sant0sk1), [wjessop](http://github.com/wjessop), and [robomc](https://github.com/robomc) for their contributions to Rack::NoIE6.
+Thanks to [juliocesar](http://github.com/juliocesar), [sant0sk1](http://github.com/sant0sk1), [wjessop](http://github.com/wjessop), and [robomc](https://github.com/robomc) for their contributions to `rack-noie6`.
 
 ## license
 

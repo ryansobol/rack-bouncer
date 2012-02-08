@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = "contact@ryansobol.com"
   s.homepage    = "https://github.com/ryansobol/rack-bouncer"
   s.summary     = "A Rack middleware that expels undesirable browsers out of your website."
-  s.description = "A Rack middleware that expels undesirable browsers out of your website."
+  s.description = "A Rack middleware that expels undesirable browsers out of your website. This project lovingly extends the rack-noie6 gem."
 
   s.required_ruby_version     = "~> 1.8.7"
   s.required_rubygems_version = ">= 1.3.7"
