@@ -34,6 +34,10 @@ You can even specify a set of safe paths:
 
 *NOTE:* By default, the above paths are safe already.
 
+## contributing
+
+Pull requests are very welcome.
+
 ## acknowledgments
 
 Thanks to [juliocesar](http://github.com/juliocesar), [sant0sk1](http://github.com/sant0sk1), [wjessop](http://github.com/wjessop), and [robomc](https://github.com/robomc) for their contributions to Rack::NoIE6.
