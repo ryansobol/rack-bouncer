@@ -30,6 +30,10 @@ You can even specify a minimum version of IE like so
 
 The default URL points to Microsoft's IE upgrade page.
 
+# acknowledgments
+
+Thanks to Jerod Santo, Julio Cesar Ody, and Will Jessop for their contributions to Rack::NoIE6.
+
 # license
 
 MIT
