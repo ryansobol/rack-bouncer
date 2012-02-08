@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Rack
   class Bouncer
     VERSION = "1.2"
