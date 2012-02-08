@@ -12,15 +12,15 @@ A Rack middleware that expels undesirable browsers out of your website.
     gem install rack-bouncer
     require "rack/bouncer"
 
-The default redirects users to [Browse Happy](http://browsehappy.com/), like so:
+The default redirects users to [Browse Happy](http://browsehappy.com/):
 
     use Rack::Bouncer
 
-You can redirect users to a page in your website, like so:
+You can redirect users to a page in your website:
 
     use Rack::Bouncer, redirect: "/bouncer.html"
 
-You can redirect users to a URL as well, like so:
+You can redirect users to a URL as well:
 
     use Rack::Bouncer, redirect: "http://slashdot.org"
 
