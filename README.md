@@ -28,6 +28,12 @@ You can even specify a minimum version of IE like so:
 
     use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_ie => 6.0
 
+You can even specify a set of safe paths:
+
+    use Rack::Bouncer, :safe_paths => ["/assets", "/images", "/stylesheets", "/javascripts", "/feedback"]
+
+*NOTE:* By default, the above paths are safe already.
+
 ## acknowledgments
 
 Thanks to [juliocesar](http://github.com/juliocesar), [sant0sk1](http://github.com/sant0sk1), [wjessop](http://github.com/wjessop), and [robomc](https://github.com/robomc) for their contributions to Rack::NoIE6.

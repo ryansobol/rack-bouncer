@@ -22,7 +22,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   end
 
   def test_default_safe_paths
-    expected = ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"]
+    expected = ["/assets", "/images", "/stylesheets", "/javascripts", "/feedback"]
     assert_equal expected, Rack::Bouncer::DEFAULT_OPTIONS[:safe_paths]
   end
 
@@ -228,7 +228,7 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
 
   def test_allows_assets_path
     request  = create_request
-    response = request.get("/asset", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    response = request.get("/assets", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end

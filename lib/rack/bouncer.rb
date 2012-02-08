@@ -5,7 +5,7 @@ module Rack
     VERSION = "1.2"
 
     DEFAULT_OPTIONS = {
-      :safe_paths => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"],
+      :safe_paths => ["/assets", "/images", "/stylesheets", "/javascripts", "/feedback"],
       :redirect   => "http://browsehappy.com/",
       :minimum_ie => 8.0
     }
