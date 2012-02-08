@@ -21,6 +21,11 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
     assert_equal "1.2", Rack::Bouncer::VERSION
   end
 
+  def test_default_safe_paths
+    expected = ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"]
+    assert_equal expected, Rack::Bouncer::DEFAULT_OPTIONS[:safe_paths]
+  end
+
   def test_default_redirect
     assert_equal "http://browsehappy.com/", Rack::Bouncer::DEFAULT_OPTIONS[:redirect]
   end
@@ -200,6 +205,58 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   def test_allows_chrome_16
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  # Safe Paths
+  #################################################################################################
+
+  def test_allows_redirect_path
+    request  = create_request(:redirect => "/browser")
+    response = request.get("/browser", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_expels_non_redirect_path
+    request  = create_request(:redirect => "/browser")
+    response = request.get("/wrong", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 302, response.status
+    assert_equal response.location, "/browser"
+  end
+
+  def test_allows_assets_path
+    request  = create_request
+    response = request.get("/asset", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_images_path
+    request  = create_request
+    response = request.get("/images", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_stylesheets_path
+    request  = create_request
+    response = request.get("/stylesheets", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_javascripts_path
+    request  = create_request
+    response = request.get("/javascripts", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_feedback_path
+    request  = create_request
+    response = request.get("/feedback", {"HTTP_USER_AGENT" => "Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)" })
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end

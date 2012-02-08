@@ -5,6 +5,7 @@ module Rack
     VERSION = "1.2"
 
     DEFAULT_OPTIONS = {
+      :safe_paths => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"],
       :redirect   => "http://browsehappy.com/",
       :minimum_ie => 8.0
     }
@@ -15,7 +16,7 @@ module Rack
     end
 
     def call(env)
-      if ie6_found_in?(env) || aol_found_in?(env)
+      if !safe_path(env) && (ie6_found_in?(env) || aol_found_in?(env))
         kick_it
       else
         @app.call(env)
@@ -25,8 +26,10 @@ module Rack
     private
 
     def safe_path(env)
-      path = env["PATH_INFO"]
-      path == @options[:redirect] || path =~ %r[^/(asset|images|stylesheets|javascripts|feedback)]
+      path       = env["PATH_INFO"]
+      safe_paths = @options[:safe_paths].join("|")
+
+      path == @options[:redirect] || path =~ Regexp.new("^(#{safe_paths})")
     end
 
     def ie6_found_in?(env)
