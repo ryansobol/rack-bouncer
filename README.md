@@ -29,7 +29,7 @@ You can redirect users to a URL as well:
 
 You can specify a minimum version of Chrome like so:
 
-    use Rack::Bouncer, :minimum_firefox => 6.0
+    use Rack::Bouncer, :minimum_chrome => 6.0
 
 You can specify a minimum version of Firefox like so:
 
