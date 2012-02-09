@@ -19,19 +19,19 @@ The default redirects users to [Browse Happy](http://browsehappy.com/):
 
 You can redirect users to a page in your website:
 
-    use Rack::Bouncer, :redirect => "/bouncer.html"
+    use Rack::Bouncer, :redirect => "/requirements.html"
 
 You can redirect users to a URL as well:
 
-    use Rack::Bouncer, :redirect => "http://slashdot.org"
+    use Rack::Bouncer, :redirect => "https://www.google.com/chrome"
 
 You can specify a minimum version of IE like so:
 
-    use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_ie => 6.0
+    use Rack::Bouncer, :minimum_ie => 6.0
 
 You can specify a minimum version of Firefox like so:
 
-    use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_firefox => 3.6
+    use Rack::Bouncer, :minimum_firefox => 3.6
 
 You can specify a set of safe paths:
 
