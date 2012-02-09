@@ -8,27 +8,6 @@ class Rack::Bouncer::IETest < MiniTest::Unit::TestCase
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_expels_ie_6_0_and_redirects_to_default
-    request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
-    assert_equal 302, response.status
-    assert_equal response.location, "http://browsehappy.com/"
-  end
-
-  def test_expels_ie_6_0_and_redirects_to_internal_url
-    request  = create_request(:redirect => "/foo")
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
-    assert_equal 302, response.status
-    assert_equal response.location, "/foo"
-  end
-
-  def test_expels_ie_6_0_and_redirects_to_external_url
-    request  = create_request(:redirect => "http://getfirefox.com")
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
-    assert_equal 302, response.status
-    assert_equal response.location, "http://getfirefox.com"
-  end
-
   def test_allows_ie_6_0_when_minimum
     request  = create_request(:minimum_ie => 6.0)
     response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])

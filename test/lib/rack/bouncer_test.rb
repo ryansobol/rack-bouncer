@@ -6,6 +6,9 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
     assert_equal "1.4.0", Rack::Bouncer::VERSION
   end
 
+  # Default Options
+  #################################################################################################
+
   def test_default_safe_paths
     expected = ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"]
     assert_equal expected, Rack::Bouncer::DEFAULT_OPTIONS[:safe_paths]
@@ -15,13 +18,24 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
     assert_equal "http://browsehappy.com/", Rack::Bouncer::DEFAULT_OPTIONS[:redirect]
   end
 
-  def test_default_minimum_ie
-    assert_equal 8.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_ie]
+  def test_default_minimum_chrome
+    assert_equal 7.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_chrome]
   end
 
   def test_default_minimum_firefox
     assert_equal 4.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_firefox]
   end
+
+  def test_default_minimum_ie
+    assert_equal 8.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_ie]
+  end
+
+  def test_default_minimum_safari
+    assert_equal 4.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_safari]
+  end
+
+  # Edge Cases
+  #################################################################################################
 
   def test_allows_if_no_user_agent_specified
     request  = create_request
@@ -36,6 +50,31 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
+
+  # Redirects
+  #################################################################################################
+
+  def test_redirects_to_default
+    request  = create_request
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_redirects_to_internal_url
+    request  = create_request(:redirect => "/foo")
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
+    assert_equal 302, response.status
+    assert_equal response.location, "/foo"
+  end
+
+  def test_redirects_to_external_url
+    request  = create_request(:redirect => "https://www.google.com/chrome")
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
+    assert_equal 302, response.status
+    assert_equal response.location, "https://www.google.com/chrome"
+  end
+
 
   # Safe Paths
   #################################################################################################
