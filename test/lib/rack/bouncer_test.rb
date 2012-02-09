@@ -3,15 +3,14 @@ require "test_helper"
 
 class Rack::BouncerTest < MiniTest::Unit::TestCase
   def test_version
-    assert_equal "1.4.0", Rack::Bouncer::VERSION
+    assert_equal "1.4.1", Rack::Bouncer::VERSION
   end
 
   # Default Options
   #################################################################################################
 
   def test_default_safe_paths
-    expected = ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"]
-    assert_equal expected, Rack::Bouncer::DEFAULT_OPTIONS[:safe_paths]
+    assert_equal [], Rack::Bouncer::DEFAULT_OPTIONS[:safe_paths]
   end
 
   def test_default_redirect
@@ -93,37 +92,16 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
     assert_equal response.location, "/browser"
   end
 
-  def test_allows_assets_path
-    request  = create_request
-    response = request.get("/asset", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
+  def test_allows_given_1_safe_path
+    request  = create_request(:safe_paths => ["/assets"])
+    response = request.get("/assets", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_allows_images_path
-    request  = create_request
-    response = request.get("/images", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
-    assert_equal 200, response.status
-    assert_equal "Hi Internets!", response.body
-  end
-
-  def test_allows_stylesheets_path
-    request  = create_request
-    response = request.get("/stylesheets", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
-    assert_equal 200, response.status
-    assert_equal "Hi Internets!", response.body
-  end
-
-  def test_allows_javascripts_path
-    request  = create_request
-    response = request.get("/javascripts", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
-    assert_equal 200, response.status
-    assert_equal "Hi Internets!", response.body
-  end
-
-  def test_allows_feedback_path
-    request  = create_request
-    response = request.get("/feedback", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
+  def test_allows_given_2_safe_paths
+    request  = create_request(:safe_paths => ["/assets", "/feedback.html"])
+    response = request.get("/feedback.html", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end

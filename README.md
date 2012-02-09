@@ -45,9 +45,7 @@ You can specify a minimum version of Safari like so:
 
 You can specify a set of safe paths:
 
-    use Rack::Bouncer, :safe_paths => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"]
-
-*NOTE:* By default, the above paths are safe already.
+    use Rack::Bouncer, :safe_paths => ["/assets", "/feedback.html"]
 
 ## warning
 

@@ -2,10 +2,10 @@
 
 module Rack
   class Bouncer
-    VERSION = "1.4.0"
+    VERSION = "1.4.1"
 
     DEFAULT_OPTIONS = {
-      :safe_paths      => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"],
+      :safe_paths      => [],
       :redirect        => "http://browsehappy.com/",
       :minimum_chrome  => 7.0,
       :minimum_firefox => 4.0,
@@ -19,9 +19,10 @@ module Rack
     end
 
     def call(env)
-      return @app.call(env) if safe_path?(env) || user_agent_blank?(env)
-
+      path_info  = env["PATH_INFO"]
       user_agent = env["HTTP_USER_AGENT"]
+
+      return @app.call(env) if safe_path?(path_info) || user_agent_blank?(user_agent)
 
       return expel if undesirable_ie?(user_agent)      ||
                       undesirable_aol?(user_agent)     ||
@@ -34,13 +35,15 @@ module Rack
 
     private
 
-    def safe_path?(env)
-      return true if @options[:redirect] == env["PATH_INFO"]
-      return env["PATH_INFO"] =~ Regexp.new("^(#{@options[:safe_paths].join("|")})")
+    def safe_path?(path_info)
+      return true if path_info == @options[:redirect]
+
+      return false if @options[:safe_paths].empty?
+      return path_info =~ Regexp.new("^(#{@options[:safe_paths].join("|")})")
     end
 
-    def user_agent_blank?(env)
-      env["HTTP_USER_AGENT"].nil? || env["HTTP_USER_AGENT"].empty?
+    def user_agent_blank?(user_agent)
+      user_agent.nil? || user_agent.empty?
     end
 
     def expel
