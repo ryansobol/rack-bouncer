@@ -33,6 +33,7 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
   def test_allows_if_mozilla_non_specific
     request  = create_request
     response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:mozilla_non_specific])
+    assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
