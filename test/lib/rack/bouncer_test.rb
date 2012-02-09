@@ -3,7 +3,7 @@ require "test_helper"
 
 class Rack::BouncerTest < MiniTest::Unit::TestCase
   def test_version
-    assert_equal "1.3.1", Rack::Bouncer::VERSION
+    assert_equal "1.4.0", Rack::Bouncer::VERSION
   end
 
   def test_default_safe_paths
