@@ -31,7 +31,7 @@ You can specify a minimum version of IE like so:
 
 You can specify a minimum version of Firefox like so:
 
-    use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_ie => 3.6
+    use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_firefox => 3.6
 
 You can specify a set of safe paths:
 
