@@ -22,7 +22,9 @@ module Rack
 
       user_agent = env["HTTP_USER_AGENT"]
 
-      if undesirable_ie_present?(user_agent)  || undesirable_aol_present?(user_agent) || undesirable_firefox_present?(user_agent)
+      if undesirable_ie_present?(user_agent)  ||
+         undesirable_aol_present?(user_agent) ||
+         undesirable_firefox_present?(user_agent)
         return kick_it
       end
 

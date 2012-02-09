@@ -11,7 +11,7 @@ A Rack middleware that expels undesirable browsers out of your website. This pro
 ## usage
 
     gem install rack-bouncer
-    require "rack/bouncer"
+    require "rack-bouncer"
 
 The default redirects users to [Browse Happy](http://browsehappy.com/):
 

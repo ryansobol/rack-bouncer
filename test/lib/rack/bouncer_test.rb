@@ -3,7 +3,7 @@ require "rubygems"
 require "minitest/autorun"
 require "rack/mock"
 
-require "rack/bouncer"
+require "rack-bouncer"
 
 class TestApp
   def call(env)
