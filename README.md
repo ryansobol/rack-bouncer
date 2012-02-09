@@ -41,7 +41,7 @@ You can specify a set of safe paths:
 
 ## contributing
 
-Pull requests are very welcome.
+Pull requests are very welcome. You'd be doing me a favor if you could test cover your enhancement and ensure the test suite passes *before* initiating a pull request.
 
 ## acknowledgments
 
