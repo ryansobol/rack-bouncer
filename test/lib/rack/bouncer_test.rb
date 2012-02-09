@@ -42,49 +42,49 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
 
   def test_allows_redirect_path
     request  = create_request(:redirect => "/browser")
-    response = request.get("/browser", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/browser", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
   def test_expels_non_redirect_path
     request  = create_request(:redirect => "/browser")
-    response = request.get("/wrong", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/wrong", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 302, response.status
     assert_equal response.location, "/browser"
   end
 
   def test_allows_assets_path
     request  = create_request
-    response = request.get("/asset", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/asset", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
   def test_allows_images_path
     request  = create_request
-    response = request.get("/images", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/images", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
   def test_allows_stylesheets_path
     request  = create_request
-    response = request.get("/stylesheets", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/stylesheets", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
   def test_allows_javascripts_path
     request  = create_request
-    response = request.get("/javascripts", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/javascripts", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
   def test_allows_feedback_path
     request  = create_request
-    response = request.get("/feedback", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/feedback", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end

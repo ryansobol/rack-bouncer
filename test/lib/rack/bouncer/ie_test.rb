@@ -1,72 +1,79 @@
 require "test_helper"
 
 class Rack::Bouncer::IETest < MiniTest::Unit::TestCase
-  def test_allows_ie_if_no_version_available
+  def test_allows_ie_l4me
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_no_version])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_l4me])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_expels_ie_6_and_redirects_to_default
+  def test_expels_ie_6_0_and_redirects_to_default
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
-  def test_expels_ie_6_and_redirects_to_internal_url
+  def test_expels_ie_6_0_and_redirects_to_internal_url
     request  = create_request(:redirect => "/foo")
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 302, response.status
     assert_equal response.location, "/foo"
   end
 
-  def test_expels_ie_6_and_redirects_to_external_url
+  def test_expels_ie_6_0_and_redirects_to_external_url
     request  = create_request(:redirect => "http://getfirefox.com")
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 302, response.status
     assert_equal response.location, "http://getfirefox.com"
   end
 
-  def test_allows_ie_6_when_minimum
+  def test_allows_ie_6_0_when_minimum
     request  = create_request(:minimum_ie => 6.0)
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_expels_ie_7
+  def test_expels_ie_7_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_7])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_7_0])
     assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
-  def test_allows_ie_7_when_minimum
+  def test_expels_ie_7_0_b
+    request  = create_request
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_7_0_b])
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_allows_ie_7_0_when_minimum
     request  = create_request(:minimum_ie => 7.0)
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_7])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_7_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_allows_ie_8
+  def test_allows_ie_8_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_8])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_8_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_allows_ie_8_when_minimum
+  def test_allows_ie_8_0_when_minimum
     request  = create_request(:minimum_ie => 8.0)
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_8])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_8_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_allows_ie_9
+  def test_allows_ie_9_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_9])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:ie_9_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end

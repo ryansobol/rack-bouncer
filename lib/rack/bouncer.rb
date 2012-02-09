@@ -7,8 +7,10 @@ module Rack
     DEFAULT_OPTIONS = {
       :safe_paths      => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"],
       :redirect        => "http://browsehappy.com/",
+      :minimum_chrome  => 7.0,
+      :minimum_firefox => 4.0,
       :minimum_ie      => 8.0,
-      :minimum_firefox => 4.0
+      :minimum_safari  => 4.0
     }
 
     def initialize(app, options = {})
@@ -17,16 +19,15 @@ module Rack
     end
 
     def call(env)
-      return @app.call(env) if safe_path?(env)
-      return @app.call(env) if user_agent_blank?(env)
+      return @app.call(env) if safe_path?(env) || user_agent_blank?(env)
 
       user_agent = env["HTTP_USER_AGENT"]
 
-      if undesirable_ie_present?(user_agent)  ||
-         undesirable_aol_present?(user_agent) ||
-         undesirable_firefox_present?(user_agent)
-        return kick_it
-      end
+      return expel if undesirable_ie?(user_agent)      ||
+                      undesirable_aol?(user_agent)     ||
+                      undesirable_firefox?(user_agent) ||
+                      undesirable_safari?(user_agent)  ||
+                      undesirable_chrome?(user_agent)
 
       @app.call(env)
     end
@@ -42,51 +43,53 @@ module Rack
       env["HTTP_USER_AGENT"].nil? || env["HTTP_USER_AGENT"].empty?
     end
 
-    def kick_it
-      [302, {"Location" => @options[:redirect], "Content-Type" => "text/html"}, "Browser not supported"]
+    def expel
+      header = { "Location" => @options[:redirect], "Content-Type" => "text/html" }
+      [302, header, "User Agent not permitted"]
     end
 
-    # Internet Explorer
-    ###############################################################################################
+    def undesirable_ie?(user_agent)
+      match = user_agent.match(/MSIE (\S+)/)
+      return false if match.nil?
 
-    def undesirable_ie_present?(user_agent)
-      is_ie?(user_agent) && ie_version(user_agent) < @options[:minimum_ie]
+      version = match[1].to_f
+      return false if version == 0.0
+
+      version < @options[:minimum_ie]
     end
 
-    def is_ie?(user_agent)
-      # We need at least one digit to be able to get the version, hence the \d
-      user_agent.match(/MSIE \d/) ? true : false
+    def undesirable_aol?(user_agent)
+      user_agent.match(/AOL \S+/) ? true : false
     end
 
-    def ie_version(user_agent)
-      user_agent.match(/MSIE (\S+)/)[1].to_f
+    def undesirable_firefox?(user_agent)
+      match = user_agent.match(/Firefox\/(\S+)/)
+      return false if match.nil?
+
+      version = match[1].to_f
+      return false if version == 0.0
+
+      version < @options[:minimum_firefox]
     end
 
-    # AOL
-    ###############################################################################################
+    def undesirable_safari?(user_agent)
+      match = user_agent.match(/Version\/(\S+)\s+Safari\/\S+/)
+      return false if match.nil?
 
-    def undesirable_aol_present?(user_agent)
-      is_aol?(user_agent)
+      version = match[1].to_f
+      return false if version == 0.0
+
+      version < @options[:minimum_safari]
     end
 
-    def is_aol?(user_agent)
-      user_agent.match(/AOL \d/) ? true : false
-    end
+    def undesirable_chrome?(user_agent)
+      match = user_agent.match(/Chrome\/(\S+)\s+Safari\/\S+/)
+      return false if match.nil?
 
-    # Firefox
-    ###############################################################################################
+      version = match[1].to_f
+      return false if version == 0.0
 
-    def undesirable_firefox_present?(user_agent)
-      is_firefox?(user_agent) && firefox_version(user_agent) < @options[:minimum_firefox]
-    end
-
-    def is_firefox?(user_agent)
-      # We need at least one digit to be able to get the version, hence the \d
-      user_agent.match(/Firefox\/\d/) ? true : false
-    end
-
-    def firefox_version(user_agent)
-      user_agent.match(/Firefox\/(\S+)/)[1].to_f
+      version < @options[:minimum_chrome]
     end
   end
 end

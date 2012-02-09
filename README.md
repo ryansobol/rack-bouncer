@@ -4,9 +4,11 @@ A Rack middleware that expels undesirable browsers out of your website. This pro
 
 | _Browser_         | _Undesirable Versions_ |
 |-------------------|------------------------|
-| Internet Explorer | < 8.0                  |
-| Firefox           | < 4.0                  |
 | AOL               | All                    |
+| Chrome            | < 7.0                  |
+| Firefox           | < 4.0                  |
+| Internet Explorer | < 8.0                  |
+| Safari            | < 4.0                  |
 
 ## usage
 
@@ -25,13 +27,21 @@ You can redirect users to a URL as well:
 
     use Rack::Bouncer, :redirect => "https://www.google.com/chrome"
 
-You can specify a minimum version of IE like so:
+You can specify a minimum version of Chrome like so:
 
-    use Rack::Bouncer, :minimum_ie => 6.0
+    use Rack::Bouncer, :minimum_firefox => 6.0
 
 You can specify a minimum version of Firefox like so:
 
     use Rack::Bouncer, :minimum_firefox => 3.6
+
+You can specify a minimum version of IE like so:
+
+    use Rack::Bouncer, :minimum_ie => 6.0
+
+You can specify a minimum version of Safari like so:
+
+    use Rack::Bouncer, :minimum_safari => 3.0
 
 You can specify a set of safe paths:
 

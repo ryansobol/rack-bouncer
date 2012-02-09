@@ -1,30 +1,37 @@
 require "test_helper"
 
 class Rack::Bouncer::AOLTest < MiniTest::Unit::TestCase
-  def test_expels_aol_6
+  def test_expels_aol_l4me
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_6])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_l4me])
     assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
-  def test_expels_aol_7
+  def test_expels_aol_6_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_7])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_6_0])
     assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
-  def test_expels_aol_8
+  def test_expels_aol_7_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_8])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_7_0])
     assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end
 
-  def test_expels_aol_9
+  def test_expels_aol_8_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_9])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_8_0])
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_expels_aol_9_0
+    request  = create_request
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:aol_9_0])
     assert_equal 302, response.status
     assert_equal response.location, "http://browsehappy.com/"
   end

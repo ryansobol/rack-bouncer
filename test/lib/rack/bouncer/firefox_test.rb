@@ -1,6 +1,13 @@
 require "test_helper"
 
 class Rack::Bouncer::FirefoxTest < MiniTest::Unit::TestCase
+  def test_allows_firefox_l4me
+    request  = create_request
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_l4me])
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
   def test_expels_firefox_3_6
     request  = create_request
     response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_3_6])
@@ -43,9 +50,9 @@ class Rack::Bouncer::FirefoxTest < MiniTest::Unit::TestCase
     assert_equal response.location, "http://browsehappy.com/"
   end
 
-  def test_allows_firefox_4
+  def test_allows_firefox_4_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_4])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_4_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
@@ -57,23 +64,23 @@ class Rack::Bouncer::FirefoxTest < MiniTest::Unit::TestCase
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_allows_firefox_5
+  def test_allows_firefox_5_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_5])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_5_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_allows_firefox_6
+  def test_allows_firefox_6_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_6])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_6_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
 
-  def test_allows_firefox_9
+  def test_allows_firefox_9_0
     request  = create_request
-    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_9])
+    response = request.get("/", "HTTP_USER_AGENT" => USER_AGENTS[:firefox_9_0])
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end
