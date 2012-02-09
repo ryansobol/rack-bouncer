@@ -1,0 +1,81 @@
+# encoding: UTF-8
+
+# AOL
+###################################################################################################
+
+:aol_6:
+  Mozilla/4.0 (compatible; MSIE 5.5; AOL 6.0; Windows 98)
+:aol_7:
+  Mozilla/4.0 (compatible; MSIE 7.0; AOL 7.0; Windows NT 5.1)
+:aol_8:
+  Mozilla/4.0 (compatible; MSIE 7.0; AOL 8.0; Windows NT 5.1)
+:aol_9:
+  Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.0; Windows NT 5.1)
+:aol_9_1:
+  Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.1; AOLBuild 4334.5000; Windows NT 5.1; Trident/4.0)
+:aol_9_5:
+  Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.43; Windows NT 5.1; Trident/4.0)
+:aol_9_6:
+  Mozilla/4.0 (compatible; MSIE 8.0; AOL 9.6; AOLBuild 4340.5004; Windows NT 5.1; Trident/4.0)
+
+# Chrome
+###################################################################################################
+
+:chrome_16:
+  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7
+
+# Firefox
+###################################################################################################
+
+:firefox_3_6:
+  Mozilla/5.0(Windows; U; Windows NT 5.2; rv:1.9.2) Gecko/20100101 Firefox/3.6
+:firefox_3_6_2:
+  Mozilla/5.0 (X11; U; Linux i686; fr; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2
+:firefox_3_6_b5:
+  Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2b5) Gecko/20091204 Firefox/3.6b5
+:firefox_3_6_22:
+  Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.4; en-US; rv:1.9.2.22) Gecko/20110902 Firefox/3.6.22
+:firefox_3_8:
+  Mozilla/5.0 (X11; U; Linux i686; rv:1.9.0.2) Gecko/20121223 Ubuntu/9.25 (jaunty) Firefox/3.8
+:firefox_4:
+  Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0
+:firefox_4_0_1:
+  Mozilla/5.0 (X11; Linux i686; rv:2.0.1) Gecko/20110518 Firefox/4.0.1
+:firefox_5:
+  Mozilla/5.0 (Windows NT 5.1; U; rv:5.0) Gecko/20100101 Firefox/5.0
+:firefox_6:
+  Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814 Firefox/6.0
+:firefox_9:
+  Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0) Gecko/20100101 Firefox/9.0
+:firefox_9_0_a2:
+  Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0a2) Gecko/20111101 Firefox/9.0a2
+:firefox_10_0_a4:
+  Mozilla/6.0 (Macintosh; I; Intel Mac OS X 11_7_9; rv:1.9b4) Gecko/2012010317 Firefox/10.0a4
+
+# Internet Explorer
+###################################################################################################
+
+:ie_no_version:
+  Mozilla/4.0 (compatible; MSIE l4me; Windows XP)
+:ie_6:
+  Mozilla/4.0 (MSIE 6.0; Windows NT 5.1)
+:ie_7:
+  Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)
+:ie_8:
+  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)
+:ie_9:
+  Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+
+# Mozilla
+###################################################################################################
+
+:mozilla_non_specific:
+  Mozilla/5.0
+
+# Safari
+###################################################################################################
+
+:safari_5_0:
+  Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.18.1 (KHTML, like Gecko) Version/5.0 Safari/533.16
+:safari_5_1:
+  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1 Safari/534.52.7
