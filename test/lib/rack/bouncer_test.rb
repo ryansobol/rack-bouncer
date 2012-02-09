@@ -18,7 +18,7 @@ end
 class Rack::Bouncer::Test < MiniTest::Unit::TestCase
 
   def test_version
-    assert_equal "1.2.1", Rack::Bouncer::VERSION
+    assert_equal "1.3.0", Rack::Bouncer::VERSION
   end
 
   def test_default_safe_paths
@@ -32,6 +32,10 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
 
   def test_default_minimum_ie
     assert_equal 8.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_ie]
+  end
+
+  def test_default_minimum_firefox
+    assert_equal 4.0, Rack::Bouncer::DEFAULT_OPTIONS[:minimum_firefox]
   end
 
   def test_allows_if_no_user_agent_specified
@@ -175,9 +179,93 @@ class Rack::Bouncer::Test < MiniTest::Unit::TestCase
   # Firefox
   #################################################################################################
 
+  def test_expels_firefox_3_6
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0(Windows; U; Windows NT 5.2; rv:1.9.2) Gecko/20100101 Firefox/3.6" })
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_allows_firefox_3_6_when_minimum
+    request  = create_request(:minimum_firefox => 3.6)
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0(Windows; U; Windows NT 5.2; rv:1.9.2) Gecko/20100101 Firefox/3.6" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_expels_firefox_3_6_2
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (X11; U; Linux i686; fr; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2" })
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_expels_firefox_3_6_b5
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2b5) Gecko/20091204 Firefox/3.6b5" })
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_expels_firefox_3_6_22
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.4; en-US; rv:1.9.2.22) Gecko/20110902 Firefox/3.6.22" })
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
+  def test_expels_firefox_3_8
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (X11; U; Linux i686; pl-PL; rv:1.9.0.2) Gecko/20121223 Ubuntu/9.25 (jaunty) Firefox/3.8" })
+    assert_equal 302, response.status
+    assert_equal response.location, "http://browsehappy.com/"
+  end
+
   def test_allows_firefox_4
     request  = create_request
     response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_firefox_4_0_1
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (X11; Linux i686; rv:2.0.1) Gecko/20110518 Firefox/4.0.1" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_firefox_5
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Windows NT 5.1; U; rv:5.0) Gecko/20100101 Firefox/5.0" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_firefox_6
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814 Firefox/6.0" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_firefox_9
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0) Gecko/20100101 Firefox/9.0" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_firefox_9_0_a2
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0a2) Gecko/20111101 Firefox/9.0a2" })
+    assert_equal 200, response.status
+    assert_equal "Hi Internets!", response.body
+  end
+
+  def test_allows_firefox_10_0_a4
+    request  = create_request
+    response = request.get("/", {"HTTP_USER_AGENT" => "Mozilla/6.0 (Macintosh; I; Intel Mac OS X 11_7_9; de-LI; rv:1.9b4) Gecko/2012010317 Firefox/10.0a4" })
     assert_equal 200, response.status
     assert_equal "Hi Internets!", response.body
   end

@@ -4,7 +4,8 @@ A Rack middleware that expels undesirable browsers out of your website. This pro
 
 | _Browser_         | _Undesirable Versions_ |
 |-------------------|------------------------|
-| Internet Explorer | < 8                    |
+| Internet Explorer | < 8.0                  |
+| Firefox           | < 4.0                  |
 | AOL               | All                    |
 
 ## usage
@@ -24,11 +25,15 @@ You can redirect users to a URL as well:
 
     use Rack::Bouncer, :redirect => "http://slashdot.org"
 
-You can even specify a minimum version of IE like so:
+You can specify a minimum version of IE like so:
 
     use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_ie => 6.0
 
-You can even specify a set of safe paths:
+You can specify a minimum version of Firefox like so:
+
+    use Rack::Bouncer, :redirect => "http://slashdot.org", :minimum_ie => 3.6
+
+You can specify a set of safe paths:
 
     use Rack::Bouncer, :safe_paths => ["/asset", "/images", "/stylesheets", "/javascripts", "/feedback"]
 
