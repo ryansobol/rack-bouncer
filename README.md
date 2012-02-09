@@ -49,6 +49,22 @@ You can specify a set of safe paths:
 
 *NOTE:* By default, the above paths are safe already.
 
+## warning
+
+I use this gem in a production Rails app and it works great.  But in development, my app throws the following error whenever the `Rack::Bouncer` middleware is triggered:
+
+    !! Unexpected error while processing request: thread 0x1001d5258 tried to join itself
+
+I'm using the following versions of Ruby and Rails:
+
+    $ ruby -v
+    ruby 1.8.7 (2011-02-18 patchlevel 334) [i686-darwin10.7.0], MBARI 0x6770, Ruby Enterprise Edition 2011.03
+    
+    $ rails -v
+    Rails 2.3.14
+
+If anyone has a suggestion, I'd appreciate your help.
+
 ## contributing
 
 Pull requests are very welcome. You'd be doing me a favor if you could test cover your enhancement and ensure the test suite passes *before* initiating a pull request.
