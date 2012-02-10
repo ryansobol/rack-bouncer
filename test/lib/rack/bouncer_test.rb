@@ -3,7 +3,7 @@ require "test_helper"
 
 class Rack::BouncerTest < MiniTest::Unit::TestCase
   def test_version
-    assert_equal "1.4.1", Rack::Bouncer::VERSION
+    assert_equal "1.4.2", Rack::Bouncer::VERSION
   end
 
   # Default Options
@@ -50,7 +50,7 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
     assert_equal "Hi Internets!", response.body
   end
 
-  # Redirects
+  # :redirect
   #################################################################################################
 
   def test_redirects_to_default
@@ -74,8 +74,7 @@ class Rack::BouncerTest < MiniTest::Unit::TestCase
     assert_equal response.location, "https://www.google.com/chrome"
   end
 
-
-  # Safe Paths
+  # :safe_paths
   #################################################################################################
 
   def test_allows_redirect_path
