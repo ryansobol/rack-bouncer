@@ -40,10 +40,18 @@ namespace :gem do
     jeweler { |gem_file| system "gem push #{gem_file}"}
   end
 
+  desc "Tags and pushes the current version to GitHub"
+  task :tag do
+    puts "==> Tagging and pushing to GitHub"
+    system "git tag -a v#{Rack::Bouncer::VERSION} -m 'Tag v#{Rack::Bouncer::VERSION}'"
+    system "git push --tags"
+  end
+
   desc "Builds, pushes, and cleans a gem for the current project"
   task :release do
     Rake::Task["gem:build"].invoke
     Rake::Task["gem:push"].invoke
+    Rake::Task["gem:tag"].invoke
     Rake::Task["gem:clean"].invoke
   end
 
